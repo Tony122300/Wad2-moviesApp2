@@ -20,7 +20,7 @@ const Header = ({ title, history }) => {
   const classes = useStyles();
   return (
     <Paper component="div" className={classes.root}>
-      <IconButton aria-label="go back" onClick={() => history.goBack()}>
+ <IconButton aria-label="go back" onClick={() => history.goBack()}>
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
 
