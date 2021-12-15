@@ -1,4 +1,4 @@
-import React from "react"; 
+import React from "react";
 import MovieHeader from "../headerMovie";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,21 +21,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TemplateMoviePage = ({ movie, children }) => {
-  const classes = useStyles();
-  const { data , error, isLoading, isError } = useQuery(
-    ["images", { id: movie.id }],
-    getMovieImages
-  );
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
-  const images = data.posters
-
+    const classes = useStyles();
+    const { data , error, isLoading, isError } = useQuery(
+      ["images", { id: movie.id }],
+      getMovieImages
+    );
+  
+    if (isLoading) {
+      return <Spinner />;
+    }
+  
+    if (isError) {
+      return <h1>{error.message}</h1>;
+    }
+    const images = data.posters 
+  
   return (
     <>
       <MovieHeader movie={movie} />

@@ -13,6 +13,7 @@ import StarRateIcon from "@material-ui/icons/StarRate";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import img from '../../images/film-poster-placeholder.png'
+import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import { MoviesContext } from "../../contexts/moviesContext";
 
@@ -25,19 +26,21 @@ const useStyles = makeStyles({
 });
 
 export default function MovieCard({ movie, action }) {
-    const classes = useStyles();
-    const { favorites, addToFavorites } = useContext(MoviesContext);
-  
-    if (favorites.find((id) => id === movie.id)) {
-      movie.favorite = true;
-    } else {
-      movie.favorite = false
-    }
-  
-    const handleAddToFavorite = (e) => {
-      e.preventDefault();
-      addToFavorites(movie);
-    };
+  const classes = useStyles();
+  const { favorites, addToFavorites } = useContext(MoviesContext);
+
+  if (favorites.find((id) => id === movie.id)) {
+    movie.favorite = true;
+  } else {
+    movie.favorite = false
+  }
+
+  const handleAddToFavorite = (e) => {
+    e.preventDefault();
+    addToFavorites(movie);
+  };
+
+
   return (
     <Card className={classes.card}>
           <CardHeader
@@ -63,6 +66,7 @@ export default function MovieCard({ movie, action }) {
             : img
         }
       />
+      
       <CardContent>
         <Grid container>
           <Grid item xs={6}>
@@ -81,13 +85,14 @@ export default function MovieCard({ movie, action }) {
       </CardContent>
       <CardActions disableSpacing>
         {action(movie)}
-        path="/movies/${movie.id}"
       <IconButton aria-label="add to favorites" onClick={handleAddToFavorite}>
         <FavoriteIcon color="primary" fontSize="large" />
     </IconButton>
-        <Button variant="outlined" size="medium" color="primary">
-          More Info ...
-        </Button>
+        <Link to={`/movies/${movie.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

@@ -34,6 +34,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -65,17 +66,6 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           label={`${movie.vote_average} (${movie.vote_count}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
-      </Paper>
-
-      <Paper component="ul" className={classes.root}>
-        <li>
-          <Chip label="Prouction Country" className={classes.chip} color="primary" />
-        </li>
-        {movie.production_countries.map((g) => (
-          <li key={g.name}>
-            <Chip label={g.name} className={classes.chip} />
-          </li>
-        ))}
       </Paper>
 
       <Fab

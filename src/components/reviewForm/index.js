@@ -10,7 +10,6 @@ import { withRouter } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar"; 
 import MuiAlert from "@material-ui/lab/Alert";
-
 const ratings = [
   {
     value: 5,
@@ -53,13 +52,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     marginRight: theme.spacing(2),
   },
-  snack: {
-     width: "50%",
-     "& > * ": {
-       width: "100%",
-     },
-   },
 }));
+
+
 
 const ReviewForm = ({ movie, history }) => {
   const classes = useStyles();
@@ -67,27 +62,21 @@ const ReviewForm = ({ movie, history }) => {
   const context = useContext(MoviesContext);
   const [rating, setRating] = useState(3);
   const [open, setOpen] = React.useState(false);
-
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
   const handleSnackClose = (event) => {     // NEW
     setOpen(false);
     history.push("/movies/favorites");
   };
-
-
-  const handleRatingChange = (event) => {
-    setRating(event.target.value);
-  };
-
-const onSubmit = (review) => {
+  const onSubmit = (review) => {
     review.movieId = movie.id;
     review.rating = rating;
-    // console.log(review);
     context.addReview(movie, review);
-    setOpen(true);   // NEW
+    setOpen(true);
   };
-
-  return (
-    <Box component="div" className={classes.root}>
+return (
+<Box component="div" className={classes.root}>
       <Typography component="h2" variant="h3">
         Write a review
       </Typography>

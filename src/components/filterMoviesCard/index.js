@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, {useEffect}  from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -29,36 +29,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function FilterMoviesCard(props) {
-  const classes = useStyles();
-  const { data, error, isLoading, isError } = useQuery("genres", getGenres);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
-  const genres = data.genres;
-  if (genres[0].name !== "All"){
-    genres.unshift({ id: "0", name: "All" });
-  }
-
-  const handleChange = (e, type, value) => {
-    e.preventDefault();
-    props.onUserInput(type, value); // NEW
-  };
-
-  const handleTextChange = (e, props) => {
-    handleChange(e, "name", e.target.value);
-  };
-
-  const handleGenreChange = (e) => {
-    handleChange(e, "genre", e.target.value);
-  };
+    const classes = useStyles();
+    const { data, error, isLoading, isError } = useQuery("genres", getGenres);
   
+    if (isLoading) {
+      return <Spinner />;
+    }
   
+    if (isError) {
+      return <h1>{error.message}</h1>;
+    }
+    const genres = data.genres;
+    if (genres[0].name !== "All"){
+      genres.unshift({ id: "0", name: "All" });
+    }
+  
+    const handleChange = (e, type, value) => {
+      e.preventDefault();
+      props.onUserInput(type, value); // NEW
+    };
+  
+    const handleTextChange = (e, props) => {
+      handleChange(e, "name", e.target.value);
+    };
+  
+    const handleGenreChange = (e) => {
+      handleChange(e, "genre", e.target.value);
+    };
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -68,22 +67,22 @@ export default function FilterMoviesCard(props) {
           Filter the movies.
         </Typography>
         <TextField
-      className={classes.formControl}
-      id="filled-search"
-      label="Search field"
-      type="search"
-      value={props.titleFilter}
-      variant="filled"
-      onChange={handleTextChange}
-    />
+        className={classes.formControl}
+        id="filled-search"
+        label="Search field"
+        type="search"
+        value={props.titleFilter}
+        variant="filled"
+        onChange={handleTextChange}
+        />
         <FormControl className={classes.formControl}>
           <InputLabel id="genre-label">Genre</InputLabel>
           <Select
-      labelId="genre-label"
-      id="genre-select"
-      value={props.genreFilter}
-      onChange={handleGenreChange}
-    >
+            labelId="genre-label"
+            id="genre-select"
+            value={props.genreFilter}
+            onChange={handleGenreChange}
+            >   
             {genres.map((genre) => {
               return (
                 <MenuItem key={genre.id} value={genre.id}>

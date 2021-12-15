@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     adult: false,
@@ -80,4 +79,3 @@ export default {
     vote_average: 7,
     vote_count: 9692,
   };
-  
