@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { useQuery } from 'react-query'
 import Spinner from '../components/spinner'
@@ -26,11 +26,11 @@ const upcomingMoviesPage = (props) => {
       title="upcoming Movies"
       movies={movies}
       action={(movie) => {
-        return <AddToPopularIcon movie={movie} />
+       return <AddToPopularIcon movie={movie} />
         
       }}
     />
 );
 };
 
-export default upcomingMoviesPage;
+export default upcomingMoviesPage*/

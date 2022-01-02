@@ -1,36 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import { useQuery } from 'react-query'
+import { MoviesContext } from "../context/movieContext";
+import { useQueries } from "react-query";
+import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
-import {getPopular} from '../api/tmdb-api'
-import AddToPopularIcon from "../components/cardIcons/addToPopular";
-const popularMoviesPage = (props) => {
-     // eslint-disable-next-line react-hooks/rules-of-hooks
-  const {  data, error, isLoading, isError }  = useQuery('Popular', getPopular)
+import WriteReview from "../components/cardIcons/writeReview";
+const FavoriteMoviesPage = () => {
+  const {favorites: movieIds } = useContext(MoviesContext);
+
+  // Create an array of queries and run in parallel.
+  const favoriteMovieQueries = useQueries(
+    movieIds.map((movieId) => {
+      return {
+        queryKey: ["movie", { id: movieId }],
+        queryFn: getMovie,
+      };
+    })
+  );
+  // Check if any of the parallel queries is still loading.
+  const isLoading = favoriteMovieQueries.find((m) => m.isLoading === true);
 
   if (isLoading) {
-    return <Spinner />
+    return <Spinner />;
   }
 
-  if (isError) {
-    return <h1>{error.message}</h1>
-  }  
-  const movies = data.results;
+  const movies = favoriteMovieQueries.map((q) => {
+    q.data.genre_ids = q.data.genres.map(g => g.id)
+    return q.data
+  });
 
-  // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
+  const toDo = () => true;
 
   return (
     <PageTemplate
-      title="Popular Movies"
+      title="Favorite Movies"
       movies={movies}
+      selectFavorite={toDo}
       action={(movie) => {
-        return <AddToPopularIcon movie={movie} />
-        
+        return (
+          <>
+            <WriteReview movie={movie} />
+          </>
+        );
       }}
     />
-);
+  );
 };
 
-export default popularMoviesPage;
+export default FavoriteMoviesPage;

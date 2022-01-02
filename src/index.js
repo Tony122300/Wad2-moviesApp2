@@ -9,7 +9,7 @@ import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
-import MoviesContextProvider from "./contexts/moviesContext";
+import MoviesContextProvider from "./context/movieContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import popularMoviesPage from "./pages/popularMoviesPage";
 import upcomingMoviesPage from "./pages/upcomingMoviesPage";
