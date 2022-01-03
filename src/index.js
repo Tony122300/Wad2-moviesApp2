@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// eslint-disable-next-line no-unused-vars
 import { BrowserRouter, Route, Redirect, Switch, Link } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
@@ -13,6 +12,9 @@ import MoviesContextProvider from "./context/movieContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import popularMoviesPage from "./pages/popularMoviesPage";
 import upcomingMoviesPage from "./pages/upcomingMoviesPage";
+import LoginPage from "./pages/loginPage";
+import AuthContext from "./context/authContext";
+import PrivateRoute from "./components/privateRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,13 +30,15 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <AuthContext>
         <SiteHeader />
         <MoviesContextProvider>
             {" "}
             <Switch>
+              <Route path="/login" component={LoginPage} />
             <Route exact path="/reviews/form" component={AddMovieReviewPage} />
       <Route path="/reviews/:id" component={MovieReviewPage} />
-        <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
+        <PrivateRoute exact path="/movies/favorites" component={FavoriteMoviesPage} />
         <Route path="/movies/:id" component={MoviePage} />
         <Route exact path="/" component={HomePage} />
         <Route exact path="/movies/popular" component={popularMoviesPage} />
@@ -42,6 +46,7 @@ const App = () => {
         <Redirect from="*" to="/" />
       </Switch>
       </MoviesContextProvider>
+      </AuthContext>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
