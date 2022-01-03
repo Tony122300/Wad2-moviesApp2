@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import useForm from "react-hook-form";
-import { MoviesContext } from "../../context/movieContext";
+import { MoviesContext } from "../../contexts/movieContext";
 import { withRouter } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar"; 

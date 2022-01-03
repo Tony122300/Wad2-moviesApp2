@@ -8,14 +8,14 @@ import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
-import MoviesContextProvider from "./context/movieContext";
+import MoviesContextProvider from "./contexts/movieContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import popularMoviesPage from "./pages/popularMoviesPage";
 import upcomingMoviesPage from "./pages/upcomingMoviesPage";
 import LoginPage from "./pages/loginPage";
-import AuthContext from "./context/authContext";
+import AuthContext from "./contexts/authContext";
 import PrivateRoute from "./components/privateRoute";
-
+import SignUpPage from "./pages/signupPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -32,10 +32,13 @@ const App = () => {
       <BrowserRouter>
       <AuthContext>
         <SiteHeader />
+        <Link to="/signup">signupPage</Link>
+
         <MoviesContextProvider>
             {" "}
             <Switch>
               <Route path="/login" component={LoginPage} />
+              <Route path="/signup" component={SignUpPage} />
             <Route exact path="/reviews/form" component={AddMovieReviewPage} />
       <Route path="/reviews/:id" component={MovieReviewPage} />
         <PrivateRoute exact path="/movies/favorites" component={FavoriteMoviesPage} />
